@@ -1,5 +1,5 @@
-resource "aws_lb" "test-lb" {
-  name               = "test-ecs-lb"
+resource "aws_lb" "lb" {
+  name               = "ecs-lb"
   load_balancer_type = "application"
   internal           = false
   subnets            = module.vpc.public_subnets
@@ -14,8 +14,8 @@ resource "aws_security_group" "lb" {
   name   = "allow-all-lb"
   vpc_id = data.aws_vpc.main.id
   ingress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = 80
+    to_port     = 80
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -28,12 +28,12 @@ resource "aws_security_group" "lb" {
 
   tags = {
     "env"       = "dev"
-    "createdBy" = "mkerimova"
+    "createdBy" = "Samir Merdoud"
   }
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
-  name        = "masha-target-group"
+  name        = "lb-target-group"
   port        = "80"
   protocol    = "HTTP"
   target_type = "instance"
@@ -49,7 +49,7 @@ resource "aws_lb_target_group" "lb_target_group" {
 }
 
 resource "aws_lb_listener" "web-listener" {
-  load_balancer_arn = aws_lb.test-lb.arn
+  load_balancer_arn = aws_lb.lb.arn
   port              = "80"
   protocol          = "HTTP"
   default_action {

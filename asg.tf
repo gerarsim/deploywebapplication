@@ -18,13 +18,13 @@ data "aws_ami" "amazon_linux" {
   owners = ["amazon", "self"]
 }
 
-resource "aws_security_group" "ec2-sg" {
+resource "aws_security_group" "ec2-securegrp" {
   name        = "allow-all-ec2"
   description = "allow all"
   vpc_id      = data.aws_vpc.main.id
   ingress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = 80
+    to_port     = 80
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -36,11 +36,11 @@ resource "aws_security_group" "ec2-sg" {
   }
 
   tags = {
-    Name = "mkerimova"
+    Name = "EC2SG"
   }
 }
 
-resource "aws_launch_configuration" "lc" {
+resource "aws_launch_configuration" "lconfig" {
   name          = "test_ecs"
   image_id      = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
@@ -49,7 +49,7 @@ resource "aws_launch_configuration" "lc" {
   }
   iam_instance_profile        = aws_iam_instance_profile.ecs_service_role.name
   key_name                    = var.key_name
-  security_groups             = [aws_security_group.ec2-sg.id]
+  security_groups             = [aws_security_group.ec2-securegrp.id]
   associate_public_ip_address = true
   user_data                   = <<EOF
 #! /bin/bash
@@ -60,7 +60,7 @@ EOF
 
 resource "aws_autoscaling_group" "asg" {
   name                      = "test-asg"
-  launch_configuration      = aws_launch_configuration.lc.name
+  launch_configuration      = aws_launch_configuration.lconfi.name
   min_size                  = 3
   max_size                  = 4
   desired_capacity          = 3

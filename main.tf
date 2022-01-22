@@ -1,13 +1,13 @@
 provider "aws" {
   region  = "us-east-1"
-  version = "~> 2.63"
+  version = "~> 2.70"
 }
 
 
 terraform {
   backend "s3" {
-    bucket = "ecsworkshopbucket"
-    key    = "state/terraform.tfstate"
-    region = "us-east-1"
+    bucket = "samirbucketgoodone"
+    key    = "global/eip/terraform.tfstate"
+    region = "us-central-1"
   }
 }

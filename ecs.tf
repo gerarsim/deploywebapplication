@@ -3,12 +3,12 @@ resource "aws_ecs_cluster" "web-cluster" {
   capacity_providers = [aws_ecs_capacity_provider.test.name]
   tags = {
     "env"       = "dev"
-    "createdBy" = "mkerimova"
+    "createdBy" = "Samir Merdoud"
   }
 }
 
-resource "aws_ecs_capacity_provider" "test" {
-  name = "capacity-provider-test"
+resource "aws_ecs_capacity_provider" "capacity_provider" {
+  name = "capacity-provider"
   auto_scaling_group_provider {
     auto_scaling_group_arn         = aws_autoscaling_group.asg.arn
     managed_termination_protection = "ENABLED"
@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "task-definition-test" {
   network_mode          = "bridge"
   tags = {
     "env"       = "dev"
-    "createdBy" = "mkerimova"
+    "createdBy" = "Samir Merdoud"
   }
 }
 
@@ -57,6 +57,6 @@ resource "aws_cloudwatch_log_group" "log_group" {
   name = "/ecs/frontend-container"
   tags = {
     "env"       = "dev"
-    "createdBy" = "mkerimova"
+    "createdBy" = "Samir Merdoud"
   }
 }

@@ -7,3 +7,6 @@ variable "cluster_name" {
   type        = string
   description = "The name of AWS ECS cluster"
 }
+variable "region" {
+  default = "ca-central-1"
+}

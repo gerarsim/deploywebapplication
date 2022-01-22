@@ -22,7 +22,7 @@ resource "aws_ecs_capacity_provider" "capacity_provider" {
 
 # update file container-def, so it's pulling image from ecr
 resource "aws_ecs_task_definition" "task-definition-test" {
-  family                = "web-family"
+  family                = "my_web"
   container_definitions = file("container-definitions/container-def.json")
   network_mode          = "bridge"
   tags = {

@@ -60,7 +60,7 @@ EOF
 
 resource "aws_autoscaling_group" "asg" {
   name                      = "test-asg"
-  launch_configuration      = aws_launch_configuration.lconfi.name
+  launch_configuration      = aws_launch_configuration.lconfig.name
   min_size                  = 3
   max_size                  = 4
   desired_capacity          = 3

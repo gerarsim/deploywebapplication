@@ -1,6 +1,6 @@
 resource "aws_ecs_cluster" "web-cluster" {
   name               = var.cluster_name
-  capacity_providers = [aws_ecs_capacity_provider.test.name]
+  capacity_providers = [aws_ecs_capacity_provider.capacity_provider.name]
   tags = {
     "env"       = "dev"
     "createdBy" = "Samir Merdoud"

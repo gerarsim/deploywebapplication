@@ -23,8 +23,8 @@ resource "aws_security_group" "ec2-securegrp" {
   description = "allow all"
   vpc_id      = data.aws_vpc.main.id
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 0
+    to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -68,7 +68,7 @@ resource "aws_autoscaling_group" "asg" {
   health_check_grace_period = 300
   vpc_zone_identifier       = module.vpc.public_subnets
 
-  target_group_arns     = [aws_lb_target_group.lb_target_group.arn]
+  target_group_arns     = [aws_lb_target_group.target_group.arn]
   protect_from_scale_in = true
   lifecycle {
     create_before_destroy = true

@@ -9,6 +9,3 @@ variable "cluster_name" {
   description = "The name of AWS ECS cluster"
   default = "akssmerdoud"
 }
-variable "region" {
-  default = "ca-central-1"
-}
